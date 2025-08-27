@@ -9,7 +9,7 @@ def maneger():
     producer=pub.get_producer_config()
     pub.publish_message(producer, pub.topic_anti,s["antisemitic"])
     pub.publish_message(producer, pub.topic_no_anti,s["non_antisemitic"])
-    print("!!!")
+    print("pushed to kafka")
 
 maneger()
 
