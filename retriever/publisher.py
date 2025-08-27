@@ -3,8 +3,8 @@ import json
 
 class Publisher:
     def __init__(self):
-        self.event1={"App":"Producer 1"}
-        self.event2={"App": "Producer 2"}
+        # self.event1={"App":"Producer 1"}
+        # self.event2={"App": "Producer 2"}
         self.topic1="raw_tweets_antisemitic"
         self.topic2="raw_tweets_not_antisemitic"
 
