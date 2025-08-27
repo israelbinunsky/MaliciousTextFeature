@@ -8,7 +8,7 @@ def maneger():
     producer =pub.get_producer_config()
     pub.publish_message(producer,pub.topic1,)
 
-    print(!!!)
+    print('!!!')
 
 
 

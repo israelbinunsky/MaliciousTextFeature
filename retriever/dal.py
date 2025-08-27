@@ -14,19 +14,17 @@ class Dal:
    async def get_collection(self, skip=0 ,limit=100):
        collection = self.database[self.collection]
        collection = list(collection.find().sort( 'CreateDate', 1).skip(skip).limit(limit))
+       for doc in collection:
+           print(doc)
        return collection
 
-
-
 async def main():
-    d = Dal()
+    dal = Dal()
     skip = 0
     limit = 100
     while True:
-        docs = await d.get_collection(skip, limit)
-        for doc in docs:
-            print(doc)
+        await dal.get_collection(skip, limit)
         skip += limit
-        await asyncio.sleep(8)
+        await asyncio.sleep(5)
 
 asyncio.run(main())
