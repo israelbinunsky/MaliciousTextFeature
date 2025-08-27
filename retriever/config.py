@@ -1,5 +1,6 @@
-MONGO_USER = os.getenv("MONGO_USER", "root")
-MONGO_PASS = os.getenv("MONGO_PASS", "example")
-MONGO_HOST = os.getenv("MONGO_HOST", "127.0.0.1")
-MONGO_PORT = os.getenv("MONGO_PORT", "27017")
-MONGO_DB = os.getenv("MONGO_DB", "kafka_db")
+import os
+MONGO_USER = os.getenv("MONGO_USER", "IRGC_NEW")
+MONGO_PASS = os.getenv("MONGO_PASS", "iran135")
+MONGO_DB = os.getenv("MONGO_DB", "IranMalDB")
+MONGO_URI = os.getenv('MONGO_URI', f'mongodb+srv://{MONGO_USER}:{MONGO_PASS}@cluster0.6ycjkak.mongodb.net/' )
+MONGO_COLLECTION = os.getenv("MONGO_COLLECTION", "tweets")
