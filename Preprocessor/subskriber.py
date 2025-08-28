@@ -1,12 +1,17 @@
 import os
 from kafka import KafkaProducer,KafkaConsumer
 import json
+from processor import Processor
+from retriever.publisher import Publisher
 
 
-class Subskriber:
+class Subscriber:
     def __init__(self):
         self.topic_anti = "raw_tweets_antisemitic"
         self.topic_no_anti = "raw_tweets_not_antisemitic"
+        self.topic_pro_anti="preprocessed_tweets_antisemitic"
+        self.topic_pro_not_anti="preprocessed_tweets_not_antisemitic"
+
 
 
     def get_consumer_events(self,topic):
@@ -19,20 +24,22 @@ class Subskriber:
         return consumer
 
 
-    def consumer_messages(self,topic):
-        events = self.get_consumer_events(topic)
-        final_data = []
+    def consumer_messages(self,topic_sub,topic_pub):
+        events = self.get_consumer_events(topic_sub)
+        pro=Processor()
+        pub = Publisher()
         for message in events:
             print(f"yes, {message}")
-            a = cleaner.clean(message.value)
-            publisher.publish_message(a)
-        events.close()
+            clean_text=pro.new_param(message.value)
+            pub.publish_message(topic_pub,clean_text)
 
 
 
-a=Subskriber()
+
+
+a=Subscriber()
 # a.consumer_messages("raw_tweets_not_antisemitic")
-b=a.get_consumer_events("raw_tweets_not_antisemitic")
-s=a.consumer_messages(a.topic_anti)
-e=a.consumer_messages(a.topic_no_anti)
+# b=a.get_consumer_events("raw_tweets_not_antisemitic")
+s=a.consumer_messages(a.topic_anti,a.topic_pro_anti)
+e=a.consumer_messages(a.topic_no_anti,a.topic_pro_not_anti)
 print(s,e)
