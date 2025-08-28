@@ -7,17 +7,19 @@ class Publisher:
         # self.event2={"App": "Producer 2"}
         self.topic_anti= "raw_tweets_antisemitic"
         self.topic_no_anti= "raw_tweets_not_antisemitic"
+        self.producer = None
+        self.get_producer_config()
 
 
     def get_producer_config(self):
-        producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
+        self.producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
                                  value_serializer=lambda x:
                                  json.dumps(x,default=str).encode('utf-8'))
-        print(producer.config)
-        return producer
+        print(self.producer.config)
+        return self.producer
 
-    def publish_message(self,producer,topic,message):
-        producer.send(topic, message)
+    def publish_message(self,topic,message):
+        self.producer.send(topic, message)
 
 
 a=Publisher()
