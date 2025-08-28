@@ -30,7 +30,7 @@ class Enricher:
         latest = max(found)
         doc["relevant_timestamp"] = latest
 
-    def make_enriche(self, doc):
+    def activate_enricher(self, doc):
         self.sentiment(doc)
         self.check_weapon(doc, 'weapon_list.txt')
         self.find_time(doc)
