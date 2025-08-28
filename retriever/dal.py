@@ -32,16 +32,16 @@ class Dal:
        return result
 
 
-   def main(self):
-       d = Dal()
-       skip = 0
-       limit = 100
-       while True:
-           docs = d.get_collection(skip, limit)
-           for doc in docs:
-               print(doc)
-           skip += limit
-           time.sleep(5)
+   # def main(self):
+   #     d = Dal()
+   #     skip = 0
+   #     limit = 100
+   #     while True:
+   #         docs = d.get_collection(skip, limit)
+   #         for doc in docs:
+   #             print(doc)
+   #         skip += limit
+   #         time.sleep(5)
 
 
 

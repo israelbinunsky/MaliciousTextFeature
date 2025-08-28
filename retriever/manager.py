@@ -13,9 +13,11 @@ def manager():
         producer = pub.get_producer_config()
         while True:
             data=dl.get_collection()
-            s=dl.get_splited_data(data)
-            pub.publish_message(pub.topic_anti,s["antisemitic"])
-            pub.publish_message(pub.topic_no_anti,s["non_antisemitic"])
+            splited_data=dl.get_splited_data(data)
+            for text_anti in splited_data["antisemitic"]:
+                pub.publish_message(pub.topic_anti,text_anti)
+            for text_not_anti in splited_data["non_antisemitic"]  :
+                pub.publish_message(pub.topic_no_anti,text_not_anti)
             print("pushed to kafka")
             time.sleep(5)
     except Exception as e:

@@ -29,7 +29,6 @@ class Subscriber:
         pro=Processor()
         pub = Publisher()
         for message in events:
-            print(f"yes, {message}")
             clean_text=pro.new_param(message.value)
             pub.publish_message(topic_pub,clean_text)
 
