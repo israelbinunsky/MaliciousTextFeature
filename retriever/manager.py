@@ -11,7 +11,7 @@ def manager():
     pub.publish_message(producer, pub.topic_no_anti,s["non_antisemitic"])
     print("pushed to kafka")
 
-maneger()
+
 
 
 

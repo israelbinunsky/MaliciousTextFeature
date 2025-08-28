@@ -1,10 +1,9 @@
 import re
 from nltk.stem import WordNetLemmatizer
 
-
-class processoor:
-    def row_cleaner(self, text):
-        text = re.sub(r"@[A-Za-z0-9_]+", "", text)
+class processor:
+    def row_cleaner(self):
+        text = re.sub(r"@[A-Za-z0-9_]+", "", self.text)
         text = re.sub(r"http\S+|www\S+", "", text)
         text = " ".join(text.split())
         text = text.replace("#", "").replace("_", " ")
@@ -30,6 +29,7 @@ class processoor:
         return self
 
     def new_param(self, doc):
-        text = doc["text"]
-        processed_text = self.lowercase().remove_stopwords(["the", "and", "is"]).lemmatize().text
+        self.text = doc.value["text"]
+        processed_text = self.row_cleaner().lowercase().remove_stopwords(["the", "and", "is"]).lemmatize().text
         doc["processed_text"] = processed_text
+        print(doc)
