@@ -1,10 +1,10 @@
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from datetime import datetime
+import re
 
-class enricher:
+class Enricher:
     def __init__(self):
-        self.weapons = list()
         self.dates = list()
+
     def sentiment(self, doc):
         score = SentimentIntensityAnalyzer().polarity_scores(doc["processed_text"])
         num = score['compound']
@@ -17,15 +17,19 @@ class enricher:
         doc["sentiment"] = sen
 
     def check_weapon(self, doc, path):
+        weapons_found = list()
         words = doc["processed_text"].split()
         with open(path, 'r') as f:
             weapons = f.read()
         weapon_list = weapons.split('\n')
         for w in words:
             if w in weapon_list:
-                found = w
-                self.weapons.append(found)
+                weapons_found.append(w)
+        doc["weapons_detected"] = weapons_found
 
-    def find_earliest_time(self, doc):
-        self.dates.append(datetime.strptime(doc['datetime'], "%Y-%m-%d"))
-        self.latest_date = max(self.dates).strftime("%Y-%m-%d")
+    def find_time(self, doc):
+        found = re.findall(r"\d{4}-\d{2}-\d{2}", doc["processed_text"])
+        latest = max(found)
+        doc["relevant_timestamp"] = latest
+
+
