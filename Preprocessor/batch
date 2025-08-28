@@ -1,0 +1,3 @@
+docker build -t davidhorovitz/malicious-text-feature:latest .
+
+docker push davidhorovitz/malicious-text-feature:latest
