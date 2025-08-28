@@ -14,6 +14,7 @@ class Subscriber:
 
 
 
+
     def get_consumer_events(self,topic):
         consumer = KafkaConsumer(topic,
                                 # group_id='my-group',

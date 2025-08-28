@@ -1,7 +1,7 @@
 import re
 from nltk.stem import WordNetLemmatizer
 
-class processor:
+class Processor:
     def row_cleaner(self):
         text = re.sub(r"@[A-Za-z0-9_]+", "", self.text)
         text = re.sub(r"http\S+|www\S+", "", text)
