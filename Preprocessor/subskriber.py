@@ -3,7 +3,7 @@ from kafka import KafkaProducer,KafkaConsumer
 import json
 from processor import Processor
 from retriever.publisher import Publisher
-
+import threading
 
 class Subscriber:
     def __init__(self):
@@ -38,8 +38,12 @@ class Subscriber:
 
 
 a=Subscriber()
-# a.consumer_messages("raw_tweets_not_antisemitic")
-# b=a.get_consumer_events("raw_tweets_not_antisemitic")
-s=a.consumer_messages(a.topic_anti,a.topic_pro_anti)
-e=a.consumer_messages(a.topic_no_anti,a.topic_pro_not_anti)
-print(s,e)
+t1=threading.Thread(target=a.consumer_messages, args=(a.topic_anti, a.topic_pro_anti))
+t2 =threading.Thread(target=a.consumer_messages, args=(a.topic_no_anti, a.topic_pro_not_anti))
+t1.start()
+t2.start()
+# # a.consumer_messages("raw_tweets_not_antisemitic")
+# # b=a.get_consumer_events("raw_tweets_not_antisemitic")
+# s=a.consumer_messages(a.topic_anti,a.topic_pro_anti)
+# e=a.consumer_messages(a.topic_no_anti,a.topic_pro_not_anti)
+# print(s,e)
