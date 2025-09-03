@@ -4,6 +4,7 @@ from kafka import KafkaProducer,KafkaConsumer
 import json
 from publisher_therd import Publisher
 from enricher import Enricher
+import threading
 
 class Subscriber2:
     def __init__(self):
@@ -18,7 +19,7 @@ class Subscriber2:
     def get_consumer_events(self,topic):
         consumer = KafkaConsumer(topic,
                                 # group_id='my-group',
-                                value_deserializer=lambda m: json.loads(m.decode('ascii')),
+                                value_deserializer=lambda m: json.loads(m.decode('utf-8')),
                                 bootstrap_servers=['localhost:9092']
                                 # consumer_timeout_ms=10000
                                  )
@@ -29,6 +30,19 @@ class Subscriber2:
         pub =Publisher()
         enri=Enricher()
         for message in events:
-            retriever_text=enri.activate_enricher(message)
+
+            doc = message.value
+            # print(type(doc))
+            # print(doc)
+            retriever_text=enri.activate_enricher(doc)
+            if(message.offset % 100 == 0):
+                print(message.offset)
             pub.publish_message(topic_producer,retriever_text)
 
+
+
+a=Subscriber2()
+t1=threading.Thread(target=a.consumer_messages, args=(a.topic_pro_anti, a.tophc_enri_anti))
+t2 =threading.Thread(target=a.consumer_messages, args=(a.topic_pro_not_anti, a.tophc_enri_not_anti))
+t1.start()
+t2.start()

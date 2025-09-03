@@ -14,10 +14,10 @@ class Publisher:
         print(self.producer.config)
         return self.producer
 
-    def publish_message(self,topic,message):
-        self.producer.send(topic, message)
-
+    def publish_message(self,topic,message: dict):
+        self.producer.send(topic,message)
 
 a=Publisher()
+
 
 

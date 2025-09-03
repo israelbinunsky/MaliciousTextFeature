@@ -18,7 +18,7 @@ class Subscriber:
     def get_consumer_events(self,topic):
         consumer = KafkaConsumer(topic,
                                 # group_id='my-group',
-                                value_deserializer=lambda m: json.loads(m.decode('ascii')),
+                                value_deserializer=lambda m: json.loads(m.decode('utf-8')),
                                 bootstrap_servers=['localhost:9092']
                                 # consumer_timeout_ms=10000
                                  )

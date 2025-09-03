@@ -21,5 +21,6 @@ class Publisher:
 a=Publisher()
 
 
+
         #Publish message to a topic
         # publish_message(get_producer_config(),"topic1",event)

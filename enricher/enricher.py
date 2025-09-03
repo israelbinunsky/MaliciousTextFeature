@@ -27,12 +27,17 @@ class Enricher:
 
     def find_time(self, doc):
         found = re.findall(r"\d{4}-\d{2}-\d{2}", doc["processed_text"])
-        latest = max(found)
-        doc["relevant_timestamp"] = latest
+        if found:
+            latest = max(found)
+            doc["relevant_timestamp"] = latest
+        else:
+            doc["relevant_timestamp"] = None
 
     def activate_enricher(self, doc):
         self.sentiment(doc)
         self.check_weapon(doc, 'weapon_list.txt')
         self.find_time(doc)
+
+        return doc
 
 

@@ -1,5 +1,11 @@
 import re
+
+import nltk
 from nltk.stem import WordNetLemmatizer
+from nltk.corpus import wordnet
+nltk.download("wordnet")
+nltk.download("omw-1.4")
+wordnet.ensure_loaded()
 
 class Processor:
     def row_cleaner(self):
@@ -29,7 +35,8 @@ class Processor:
         return self
 
     def new_param(self, doc):
-        self.text = doc.value["text"]
+        self.text = doc["text"]
         processed_text = self.row_cleaner().lowercase().remove_stopwords(["the", "and", "is"]).lemmatize().text
         doc["processed_text"] = processed_text
         print(doc)
+        return doc
